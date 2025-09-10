@@ -96,4 +96,7 @@ The aim is to simulate vehicle motion, generate sensor outputs (IMU and GNSS), a
 - `Visualization.py` → Visualization of results  
 - `*.npz` → Simulation data  
 
+## 📑 Ekler
+- [Project Presentation PDF](BİTİRME_ÖDEVİ.pdf)
+  
 ---
