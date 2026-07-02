@@ -52,9 +52,9 @@ def ekf_update(x_pred, P_pred, z, R):
     P_updated = (np.eye(len(x_pred)) - K @ H) @ P_pred
     return x_updated, P_updated
 
-# Veri Yükleme
-imu_data = np.load('calibrated_imu_data.npz')
-sensor_data = np.load('sensor_data.npz')
+# Load Data
+imu_data = np.load('calibrated_imu.npz')
+sensor_data = np.load('sensor_measurements.npz')
 
 acc_x = imu_data['acc_x']
 acc_y = imu_data['acc_y']
@@ -67,7 +67,7 @@ gnss_vx = sensor_data['gnss_vx']
 gnss_vy = sensor_data['gnss_vy']
 gnss_time = sensor_data['gnss_time']
 
-#EKF Döngüsü
+# EKF Loop Initialization
 x = np.array([gnss_x[0], gnss_y[0], 0.0, np.deg2rad(90)])
 P = np.eye(4) * 1.0
 Q = np.diag([0.1, 0.1, 0.3, np.radians(2)])**2
@@ -80,9 +80,9 @@ gnss_index = 0
 for i in range(len(acc_x)):
     a_forward = acc_x[i] * np.cos(x[3]) + acc_y[i] * np.sin(x[3])
     u = np.array([a_forward, gyro_z[i]])
-    # Prediction
+    # Prediction Step
     x, P = ekf_predict(x, P, u, dt, Q)
-    # GNSS varsa update
+    # Update Step (if GNSS data is available)
     t = i * dt
     if gnss_index < len(gnss_time) and np.isclose(t, gnss_time[gnss_index], atol=dt/2):
         z = np.array([gnss_x[gnss_index], gnss_y[gnss_index], gnss_vx[gnss_index], gnss_vy[gnss_index]])
@@ -96,22 +96,21 @@ x_estimates = np.array(x_estimates)
 time_estimates = np.array(time_estimates)
 P_all_array = np.stack(P_all, axis=0)
 
-#Kaydet (Visualization.py için)
-np.savez("ekf_estimates.npz",
+# Save output (for 08_visualization.py)
+np.savez("ekf_results.npz",
          x_estimates=x_estimates,
          time=time_estimates,
          P_all=P_all_array)
 
-# Görselleştirme
+# Visualization
 plt.figure(figsize=(10, 6))
-plt.plot(gnss_x, gnss_y, 'r.', alpha=0.4, markersize=3, label='GNSS Konumu')
-plt.plot(x_estimates[:, 0], x_estimates[:, 1], 'g-',linewidth=2, label='EKF Konum Tahmini')
-plt.xlabel("X Pozisyonu (m)")
-plt.ylabel("Y Pozisyonu (m)")
-plt.title("EKF ile Konum Tahmini")
+plt.plot(gnss_x, gnss_y, 'r.', alpha=0.4, markersize=3, label='GNSS Position')
+plt.plot(x_estimates[:, 0], x_estimates[:, 1], 'g-', linewidth=2, label='EKF Estimated Position')
+plt.xlabel("X Position (m)")
+plt.ylabel("Y Position (m)")
+plt.title("Position Estimation via EKF")
 plt.axis('equal')
 plt.grid(True)
 plt.legend()
-plt.show()
-
-
+plt.savefig("filter_ekf.png")
+plt.close()

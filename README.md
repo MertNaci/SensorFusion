@@ -1,102 +1,89 @@
 # SensorFusion
-Sensor Fusion and State Estimation Graduation Project.  
-Vehicle motion simulation, IMU and GNSS sensor models, disturbances, calibration, and filtering (average, low-pass, complementary, Kalman/EKF) are implemented.
 
-# Sensör Füzyonu ve Durum Kestirimi - Bitirme Projesi
-Sensör Füzyonu ve Durum Kestirimi Bitirme Projesi.  
-Araç hareket simülasyonu, IMU ve GNSS sensör modelleri, bozucular, kalibrasyon ve filtreleme (ortalama, alçak geçiren, tamamlayıcı, Kalman/EKF) uygulanmıştır.
+**Sensor Fusion and State Estimation Graduation Project.**
+This project implements vehicle motion simulation, IMU and GNSS sensor models, disturbances, calibration, and filtering techniques (Average, Low-Pass, Complementary, Extended Kalman Filter) for state estimation.
 
 ---
 
-## 🇹🇷 Türkçe Açıklama
-Bu proje, **Otonom Sürüş Teknolojileri Uzmanlık Programı** kapsamında verilen bitirme ödevidir.  
-Amaç, bir aracın hareketini simüle etmek, sensör (IMU ve GNSS) çıktıları üretmek, bozucular eklemek, sensör kalibrasyonu yapmak ve farklı filtreleme teknikleri ile durum kestirimi gerçekleştirmektir.
+## 📌 Project Steps
 
-### 📌 Proje Adımları
-1. **Araç hareket simülasyonu**  
-   - Belirlenen rota üzerinde aracın pozisyon, hız ve yönelim değerleri Euler entegrasyonu ile çıkarıldı.
+1. **Vehicle Motion Simulation**  
+   - Vehicle’s position, velocity, and orientation are obtained using Euler integration along the predefined 10-phase route.
 
-2. **Sensör modeli**  
-   - IMU: ivmeölçer + jiroskop  
-   - GNSS: pozisyon + hız  
-   - Gürültü, bias, scale factor, gecikme (200 ms) ve çeşitli bozucular eklendi.  
+2. **Sensor Modeling**  
+   - **IMU:** Accelerometer + Gyroscope (50 Hz). Includes noise, bias, and scale factor errors.
+   - **GNSS:** Position + Velocity (5 Hz). Includes noise and a 200 ms latency delay.
 
-3. **GNSS bozucular**  
-   - 300–310 s: GNSS verisi yok  
-   - 400 s: 500 m hata (1 sn)  
-   - 500–505 s: sabit veri  
-   - Bu senaryolar filtrelerin davranışını incelemek için eklendi.  
+3. **GNSS Disturbances**  
+   - **300–310 s:** Signal outage (no GNSS data).
+   - **400 s:** 500 m position error jump (lasting 1 s).
+   - **500–505 s:** Frozen data (flatline).
+   - These scenarios are used to analyze the robustness and performance of the implemented filters.
 
-4. **Kalibrasyon**  
-   - IMU sensöründeki bias ve scale factor hataları düzeltilmiştir.
+4. **Sensor Calibration**  
+   - IMU bias and scale factor errors are estimated and corrected.
 
-5. **Filtreleme teknikleri**  
-   - Ortalama (sensör verilerini toplayıp ikiye bölme)  
-   - Alçak geçiren filtre  
-   - Tamamlayıcı (complementary) filtre  
-   - Kalman Filtresi / Genişletilmiş Kalman Filtresi (EKF)
-
-6. **Sonuçların görselleştirilmesi**  
-   - Pozisyon (x,y)  
-   - Hız (x,y)  
-   - Yönelim (ψ)  
-   - İvme (IMU)  
-   - Açısal hız (IMU)  
-   - Kalman filtresi kovaryans ve hata grafikleri (±3σ aralığı)
-
----
-
-## 🇬🇧 English Description
-This project is the **Graduation Assignment** for the Autonomous Driving Technologies Specialization Program.  
-The aim is to simulate vehicle motion, generate sensor outputs (IMU and GNSS), add disturbances, perform sensor calibration, and apply different filtering techniques for state estimation.
-
-### 📌 Project Steps
-1. **Vehicle motion simulation**  
-   - Vehicle’s position, velocity, and orientation are obtained using Euler integration along the predefined route.
-
-2. **Sensor modeling**  
-   - IMU: accelerometer + gyroscope  
-   - GNSS: position + velocity  
-   - Noise, bias, scale factor, delay (200 ms), and other disturbances are added.  
-
-3. **GNSS disturbances**  
-   - 300–310 s: no GNSS data  
-   - 400 s: 500 m position error (1 s)  
-   - 500–505 s: frozen data  
-   - These scenarios are used to analyze filter performance.  
-
-4. **Calibration**  
-   - IMU bias and scale factor errors are corrected.
-
-5. **Filtering techniques**  
-   - Averaging (simple fusion of sensor outputs)  
-   - Low-pass filter  
-   - Complementary filter  
-   - Kalman Filter / Extended Kalman Filter (EKF)
+5. **Filtering Techniques**  
+   - **Averaging:** Simple fusion of sensor outputs.
+   - **Low-Pass Filter:** IIR filter applied to IMU data.
+   - **Complementary Filter:** Fusion of IMU gyroscope and GNSS heading data.
+   - **Extended Kalman Filter (EKF):** 4-state Unicycle kinematic model for position, velocity, and heading estimation.
 
 6. **Visualization**  
-   - Position (x,y)  
-   - Velocity (x,y)  
-   - Orientation (ψ)  
-   - Acceleration (IMU)  
-   - Angular velocity (IMU)  
-   - Kalman filter covariance and error plots (±3σ bounds)
+   - Comparative plots for Position, Velocity, Heading, Acceleration, and Angular Velocity.
+   - EKF covariance tracking and error bounds (±3σ).
+
+---
+
+## 📊 Visualizations & Results
+
+### 1. Sensor Calibration
+Demonstrates the successful correction of bias and scale factor errors from the raw IMU data.
+
+![Acceleration Calibration](calibration_acceleration.png)
+
+### 2. Ground Truth vs GNSS Measurements
+Shows the simulated vehicle route and the noisy GNSS measurements with disturbances (outages, jumps, freezes).
+
+![Ground Truth vs GNSS](vis_01_position_comparison.png)
+
+### 3. Extended Kalman Filter (EKF) Position Estimation
+Shows how the EKF smoothly estimates the true trajectory, rejecting the 500m GNSS jump and handling the signal outage.
+
+![EKF Position Estimation](vis_07_position_comparison_ekf.png)
+
+### 4. Velocity (VX) Estimation
+Compares the noisy GNSS velocity measurements with the smoothed EKF velocity estimation.
+
+![Velocity Comparison](vis_08_vx_comparison.png)
+
+### 5. Heading (Yaw) Estimation
+Compares the Complementary Filter and EKF performance against the Ground Truth heading.
+
+![Heading Comparison](vis_10_yaw_comparison.png)
+
+### 6. EKF Confidence Bounds (±3σ)
+Illustrates the EKF yaw estimation along with its theoretical 3-sigma confidence interval tracking the true state.
+
+![EKF Confidence Bounds](vis_13_yaw_error_bounds.png)
 
 ---
 
 ## 📂 File Structure
-- `rota.py` → Vehicle motion simulation  
-- `Sensor.py` → IMU and GNSS sensor data simulation  
-- `Calibration.py` → Sensor calibration  
-- `Filter_*.py` → Filtering methods  
-   - `Filter_Average.py` → Averaging  
-   - `Filter_Lowpass.py` → Low-pass filter  
-   - `Filter_Complementary.py` → Complementary filter  
-   - `Filter_EKF.py` → Kalman/EKF  
-- `Visualization.py` → Visualization of results  
-- `*.npz` → Simulation data  
 
-## 📑 Ekler
-- [Project Presentation PDF](BİTİRME_ÖDEVİ.pdf)
-  
+- `01_route.py` → Vehicle motion and route simulation.
+- `02_sensor_model.py` → IMU and GNSS sensor data generation.
+- `03_calibration.py` → Sensor calibration and error correction.
+- `04_filter_average.py` → Average filtering.
+- `05_filter_lowpass.py` → Low-pass filtering.
+- `06_filter_complementary.py` → Complementary filter implementation.
+- `07_filter_ekf.py` → Extended Kalman Filter (EKF) implementation.
+- `08_visualization.py` → Final comparative plots and analysis generation.
+- `*.npz` → Intermediate simulation data storage.
+- `*.png` → Generated plots and visualizations.
+
 ---
+
+**Note:** This project is the Graduation Assignment for the Autonomous Driving Technologies Specialization Program.
+
+**Developer:** Mert Naci Akalın
