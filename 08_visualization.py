@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -48,7 +49,8 @@ plt.grid(True)
 plt.axis("equal")
 plt.legend()
 plt.tight_layout()
-plt.savefig("vis_01_position_comparison.png")
+os.makedirs("plots", exist_ok=True)
+plt.savefig("plots/vis_01_position_comparison.png")
 plt.close()
 
 # - 2. GNSS X Position over Time -
@@ -64,7 +66,8 @@ plt.title("GNSS vs Ground Truth X Position (Zoomed 290-510s)")
 plt.grid(True)
 plt.legend()
 plt.tight_layout()
-plt.savefig("vis_02_x_position_zoomed.png")
+os.makedirs("plots", exist_ok=True)
+plt.savefig("plots/vis_02_x_position_zoomed.png")
 plt.close()
 
 # - 3. GNSS Y Position over Time -
@@ -77,7 +80,8 @@ plt.title("GNSS vs Ground Truth Y Position (Zoomed 290-510s)")
 plt.grid(True)
 plt.legend()
 plt.tight_layout()
-plt.savefig("vis_03_y_position_zoomed.png")
+os.makedirs("plots", exist_ok=True)
+plt.savefig("plots/vis_03_y_position_zoomed.png")
 plt.close()
 
 # - 4. X-Axis Acceleration Calibration -
@@ -91,7 +95,8 @@ plt.title("X-Axis Acceleration Comparison")
 plt.grid(True)
 plt.legend()
 plt.tight_layout()
-plt.savefig("vis_04_acc_x_calibration.png")
+os.makedirs("plots", exist_ok=True)
+plt.savefig("plots/vis_04_acc_x_calibration.png")
 plt.close()
 
 # - 5. Y-Axis Acceleration Calibration -
@@ -105,7 +110,8 @@ plt.title("Y-Axis Acceleration Comparison")
 plt.grid(True)
 plt.legend()
 plt.tight_layout()
-plt.savefig("vis_05_acc_y_calibration.png")
+os.makedirs("plots", exist_ok=True)
+plt.savefig("plots/vis_05_acc_y_calibration.png")
 plt.close()
 
 # - 6. Angular Velocity Comparison -
@@ -119,7 +125,8 @@ plt.title("Angular Velocity (Yaw Rate) Comparison")
 plt.grid(True)
 plt.legend()
 plt.tight_layout()
-plt.savefig("vis_06_yaw_rate_comparison.png")
+os.makedirs("plots", exist_ok=True)
+plt.savefig("plots/vis_06_yaw_rate_comparison.png")
 plt.close()
 
 # - 7. Position Comparison (x, y) -
@@ -134,7 +141,8 @@ plt.axis('equal')
 plt.grid(True)
 plt.legend()
 plt.tight_layout()
-plt.savefig("vis_07_position_comparison_ekf.png")
+os.makedirs("plots", exist_ok=True)
+plt.savefig("plots/vis_07_position_comparison_ekf.png")
 plt.close()
 
 # - 8. Velocity Comparison (VX) -
@@ -151,7 +159,8 @@ plt.title("Velocity Comparison – X Component")
 plt.grid(True)
 plt.legend()
 plt.tight_layout()
-plt.savefig("vis_08_vx_comparison.png")
+os.makedirs("plots", exist_ok=True)
+plt.savefig("plots/vis_08_vx_comparison.png")
 plt.close()
 
 # - 9. Velocity Comparison (VY) -
@@ -168,7 +177,8 @@ plt.title("Velocity Comparison – Y Component")
 plt.grid(True)
 plt.legend()
 plt.tight_layout()
-plt.savefig("vis_09_vy_comparison.png")
+os.makedirs("plots", exist_ok=True)
+plt.savefig("plots/vis_09_vy_comparison.png")
 plt.close()
 
 # - 10. Heading (Yaw) Comparison -
@@ -187,7 +197,8 @@ plt.title("Heading (Yaw - ψ) Comparison")
 plt.grid(True)
 plt.legend()
 plt.tight_layout()
-plt.savefig("vis_10_yaw_comparison.png")
+os.makedirs("plots", exist_ok=True)
+plt.savefig("plots/vis_10_yaw_comparison.png")
 plt.close()
 
 # - 11. EKF vs GNSS vs Ground Truth (Zoom: 290-510s) -
@@ -205,7 +216,8 @@ plt.ylabel("X (m)")
 plt.grid(True)
 plt.legend()
 plt.tight_layout()
-plt.savefig("vis_11_x_position_zoomed_ekf.png")
+os.makedirs("plots", exist_ok=True)
+plt.savefig("plots/vis_11_x_position_zoomed_ekf.png")
 plt.close()
 
 # - 12.1 EKF Covariance Matrix over Time (Subplots) -
@@ -226,7 +238,8 @@ axs[1].legend()
 axs[1].grid(True)
 plt.suptitle("EKF Covariance Components (Over Time)")
 plt.tight_layout()
-plt.savefig("vis_12_ekf_covariance_subplots.png")
+os.makedirs("plots", exist_ok=True)
+plt.savefig("plots/vis_12_ekf_covariance_subplots.png")
 plt.close()
 
 # - 12.2 EKF Covariance Matrix (Logarithmic Y-Axis) -
@@ -243,7 +256,8 @@ plt.title("EKF Covariance Components (Logarithmic Y-Axis)")
 plt.grid(True)
 plt.legend()
 plt.tight_layout()
-plt.savefig("vis_12_ekf_covariance_log.png")
+os.makedirs("plots", exist_ok=True)
+plt.savefig("plots/vis_12_ekf_covariance_log.png")
 plt.close()
 
 # - 13. EKF Error Analysis: Heading (Yaw) ±3σ Confidence Interval -
@@ -264,5 +278,6 @@ plt.title("EKF Yaw Estimation with ±3σ Confidence Interval")
 plt.grid(True)
 plt.legend()
 plt.tight_layout()
-plt.savefig("vis_13_yaw_error_bounds.png")
+os.makedirs("plots", exist_ok=True)
+plt.savefig("plots/vis_13_yaw_error_bounds.png")
 plt.close()

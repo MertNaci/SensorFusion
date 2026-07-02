@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -49,7 +50,8 @@ plt.ylabel("Acceleration (m/s²)")
 plt.title("X Axis Acceleration Calibration")
 plt.grid(True)
 plt.legend()
-plt.savefig("calibration_acceleration.png")
+os.makedirs("plots", exist_ok=True)
+plt.savefig("plots/calibration_acceleration.png")
 plt.close()
 
 plt.figure(figsize=(12, 5))
@@ -61,7 +63,8 @@ plt.ylabel("Angular Velocity (°/s)")
 plt.title("Gyroscope Calibration")
 plt.grid(True)
 plt.legend()
-plt.savefig("calibration_gyroscope.png")
+os.makedirs("plots", exist_ok=True)
+plt.savefig("plots/calibration_gyroscope.png")
 plt.close()
 
 # - Save Calibrated Data -

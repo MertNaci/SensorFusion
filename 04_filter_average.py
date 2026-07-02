@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -50,5 +51,6 @@ plt.ylabel("Velocity X (m/s)")
 plt.title("VX Comparison – Average Filter")
 plt.grid(True)
 plt.legend()
-plt.savefig("filter_average.png")
+os.makedirs("plots", exist_ok=True)
+plt.savefig("plots/filter_average.png")
 plt.close()

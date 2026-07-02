@@ -40,32 +40,32 @@ This project implements vehicle motion simulation, IMU and GNSS sensor models, d
 ### 1. Sensor Calibration
 Demonstrates the successful correction of bias and scale factor errors from the raw IMU data.
 
-![Acceleration Calibration](calibration_acceleration.png)
+![Acceleration Calibration](plots/calibration_acceleration.png)
 
 ### 2. Ground Truth vs GNSS Measurements
 Shows the simulated vehicle route and the noisy GNSS measurements with disturbances (outages, jumps, freezes).
 
-![Ground Truth vs GNSS](vis_01_position_comparison.png)
+![Ground Truth vs GNSS](plots/vis_01_position_comparison.png)
 
 ### 3. Extended Kalman Filter (EKF) Position Estimation
 Shows how the EKF smoothly estimates the true trajectory, rejecting the 500m GNSS jump and handling the signal outage.
 
-![EKF Position Estimation](vis_07_position_comparison_ekf.png)
+![EKF Position Estimation](plots/vis_07_position_comparison_ekf.png)
 
 ### 4. Velocity (VX) Estimation
 Compares the noisy GNSS velocity measurements with the smoothed EKF velocity estimation.
 
-![Velocity Comparison](vis_08_vx_comparison.png)
+![Velocity Comparison](plots/vis_08_vx_comparison.png)
 
 ### 5. Heading (Yaw) Estimation
 Compares the Complementary Filter and EKF performance against the Ground Truth heading.
 
-![Heading Comparison](vis_10_yaw_comparison.png)
+![Heading Comparison](plots/vis_10_yaw_comparison.png)
 
 ### 6. EKF Confidence Bounds (±3σ)
 Illustrates the EKF yaw estimation along with its theoretical 3-sigma confidence interval tracking the true state.
 
-![EKF Confidence Bounds](vis_13_yaw_error_bounds.png)
+![EKF Confidence Bounds](plots/vis_13_yaw_error_bounds.png)
 
 ---
 
@@ -79,8 +79,8 @@ Illustrates the EKF yaw estimation along with its theoretical 3-sigma confidence
 - `06_filter_complementary.py` → Complementary filter implementation.
 - `07_filter_ekf.py` → Extended Kalman Filter (EKF) implementation.
 - `08_visualization.py` → Final comparative plots and analysis generation.
+- `plots/` → Folder containing all generated visualizations (.png).
 - `*.npz` → Intermediate simulation data storage.
-- `*.png` → Generated plots and visualizations.
 
 ---
 

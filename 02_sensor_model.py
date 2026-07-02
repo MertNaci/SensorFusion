@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -195,7 +196,8 @@ plt.ylabel("Y (m)")
 plt.legend()
 plt.grid(True)
 plt.axis("equal")
-plt.savefig("sensor_check_gnss.png")
+os.makedirs("plots", exist_ok=True)
+plt.savefig("plots/sensor_check_gnss.png")
 
 plt.figure(figsize=(10, 4))
 plt.plot(true_data["time"], true_data["ax"], 'b', label='True Ax')
@@ -204,4 +206,5 @@ plt.xlim(0, 100)  # View first 100 seconds
 plt.title("IMU Acceleration Verification (First 100s)")
 plt.legend()
 plt.grid(True)
-plt.savefig("sensor_check_imu.png")
+os.makedirs("plots", exist_ok=True)
+plt.savefig("plots/sensor_check_imu.png")

@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -56,5 +57,6 @@ plt.ylabel("Velocity X (m/s)")
 plt.title("VX – Low-Pass Filter Results")
 plt.grid(True)
 plt.legend()
-plt.savefig("filter_lowpass.png")
+os.makedirs("plots", exist_ok=True)
+plt.savefig("plots/filter_lowpass.png")
 plt.close()

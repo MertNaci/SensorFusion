@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -112,5 +113,6 @@ plt.title("Position Estimation via EKF")
 plt.axis('equal')
 plt.grid(True)
 plt.legend()
-plt.savefig("filter_ekf.png")
+os.makedirs("plots", exist_ok=True)
+plt.savefig("plots/filter_ekf.png")
 plt.close()

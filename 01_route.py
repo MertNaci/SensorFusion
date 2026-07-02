@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -144,7 +145,8 @@ plt.ylabel("Y (m)")
 plt.axis("equal")
 plt.grid(True)
 plt.legend()
-plt.savefig("corrected_route.png")
+os.makedirs("plots", exist_ok=True)
+plt.savefig("plots/corrected_route.png")
 
 plt.figure(figsize=(10, 4))
 plt.plot(df_truth["time"], df_truth["speed"] * 3.6, label="Speed (km/h)", color="orange")
@@ -152,4 +154,5 @@ plt.title("Speed Profile")
 plt.xlabel("Time (s)")
 plt.ylabel("Speed (km/h)")
 plt.grid(True)
-plt.savefig("speed_profile.png")
+os.makedirs("plots", exist_ok=True)
+plt.savefig("plots/speed_profile.png")

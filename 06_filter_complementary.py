@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -50,5 +51,6 @@ plt.ylabel("Yaw (degrees)")
 plt.title("Heading Estimation via Complementary Filter")
 plt.grid(True)
 plt.legend()
-plt.savefig("filter_complementary.png")
+os.makedirs("plots", exist_ok=True)
+plt.savefig("plots/filter_complementary.png")
 plt.close()
